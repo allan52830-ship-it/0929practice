@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World - Flask 一頁式網站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            margin: auto 0;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(165, 180, 252, 0.4);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .interactive-section {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.5);
+            transform: translateY(-1px);
+        }
+
+        #greet-message {
+            min-height: 24px;
+            font-size: 1rem;
+            color: #38bdf8;
+            transition: opacity 0.3s ease;
+        }
+
+        footer {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">⚡ Flask App</div>
+        <div class="badge">Flask {{ flask_version }}</div>
+    </header>
+
+    <main>
+        <h1 class="hero-title">Hello, World!</h1>
+        <p class="hero-desc">
+            歡迎來到基於 Python Flask 構建的輕量級一頁式網站。<br>
+            這是一個簡約、優雅且具備響應式設計的現代起手範例。
+        </p>
+
+        <div class="interactive-section">
+            <button class="btn" onclick="sayHello()">點擊打個招呼 ✨</button>
+            <div id="greet-message"></div>
+        </div>
+
+        <div class="features-grid">
+            <div class="card">
+                <h3>🚀 極致輕量</h3>
+                <p>使用微型框架 Flask，程式碼精簡，毫無多餘包袱，隨開即用。</p>
+            </div>
+            <div class="card">
+                <h3>🎨 現代設計</h3>
+                <p>毛玻璃與漸層風格，全螢幕響應式佈局，支援行動裝置與桌面。</p>
+            </div>
+            <div class="card">
+                <h3>🐍 Python 核心</h3>
+                <p>後端採用 Python 強大生態，可輕鬆擴展 API、資料庫與機器學習。</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Built with ❤️ using Python & Flask | 伺服器時間：{{ server_time }}</p>
+    </footer>
+
+    <script>
+        const greetings = [
+            "你好，世界！祝你有個美好的一天 🌟",
+            "Hello, Explorer! 歡迎探索 Flask 的世界 🚀",
+            "哈囉！這是一個動態互動的一頁式網站 🎈",
+            "Coding is fun! 一起寫出優雅的 Python 程式碼 💻"
+        ];
+        let index = 0;
+
+        function sayHello() {
+            const el = document.getElementById('greet-message');
+            el.innerText = greetings[index % greetings.length];
+            index++;
+        }
+    </script>
+</body>
+</html>
