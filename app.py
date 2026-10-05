@@ -1,5 +1,6 @@
 from datetime import datetime
 import importlib.metadata
+import os
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -21,5 +22,6 @@ def hello_world():
 
 
 if __name__ == "__main__":
-    # 啟動本機開發伺服器，預設埠為 5000
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    debug_mode = os.environ.get("FLASK_DEBUG", "1") == "1"
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
