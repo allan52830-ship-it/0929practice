@@ -44,9 +44,8 @@ jobs:
           DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           if [ -z "$DEPLOY_HOOK" ]; then
-            echo "::error::RENDER_DEPLOY_HOOK_URL is not set in GitHub Secrets!"
-            echo "Please set RENDER_DEPLOY_HOOK_URL in repository Settings -> Secrets and variables -> Actions."
-            exit 1
+            echo "::notice::RENDER_DEPLOY_HOOK_URL is not configured in GitHub Secrets. Skipping deploy hook. (Render will deploy via native Git push or Manual Deploy)."
+            exit 0
           fi
           echo "Triggering deployment on Render..."
           response=$(curl -s -w "\n%{http_code}" -X POST "$DEPLOY_HOOK")
